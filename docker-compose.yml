@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  php-fpm:
+    image: php:7.2-fpm
+    build:
+      context: ./php/7.2
+      dockerfile: dockerfile
+    networks:
+      - backend
+  nginx:
+    image: nginx
+    build:
+      context: ./nginx
+      dockerfile: dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - frontend
+      - backend
+  mariadb:
+    image: mariadb
+    build:
+      context: ./mariadb
+      dockerfile: dockerfile
+    volumes:
+      - ./mariadb/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    networks:
+      - frontend
+      - backend
+  redis:
+    image: redis
+    build:
+      context: ./redis
+      dockerfile: dockerfile
+    volumes:
+      - ./redis/data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - frontend
+      - backend
+
+networks:
+  frontend:
+  backend:
