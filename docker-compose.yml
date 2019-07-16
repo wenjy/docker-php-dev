@@ -8,16 +8,24 @@ services:
       dockerfile: dockerfile
     networks:
       - backend
+    depends_on:
+      - mariadb
+      - redis
   nginx:
     image: nginx
     build:
       context: ./nginx
       dockerfile: dockerfile
+    volumes:
+      - ${WWWROOT}:/var/www/html
+      - ./nginx/etc/conf.d:/etc/nginx/conf.d
     ports:
       - "80:80"
     networks:
       - frontend
       - backend
+    depends_on:
+      - php-fpm
   mariadb:
     image: mariadb
     build:
@@ -28,6 +36,7 @@ services:
     ports:
       - "3306:3306"
     environment:
+      TZ: 'Asia/Shanghai'
       MYSQL_ROOT_PASSWORD: 123456
     networks:
       - frontend
@@ -47,4 +56,12 @@ services:
 
 networks:
   frontend:
+    driver: bridge
   backend:
+    driver: bridge
+
+volumes:
+  mariadb:
+    driver: local
+  redis:
+    driver: local
