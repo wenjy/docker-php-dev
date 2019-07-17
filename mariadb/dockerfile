@@ -1,1 +1,3 @@
 FROM mariadb:10.4.6
+
+COPY ./mariadb/etc/my.cnf /etc/my.cnf
