@@ -57,8 +57,10 @@ services:
 networks:
   frontend:
     driver: bridge
+    ipv4_address: 192.168.100.2
   backend:
     driver: bridge
+    ipv4_address: 192.168.100.3
 
 volumes:
   mariadb:
