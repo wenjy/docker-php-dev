@@ -6,6 +6,8 @@ services:
     build:
       context: ./php/7.2
       dockerfile: dockerfile
+    volumes:
+      - ${WWWROOT}:/var/www/html
     networks:
       - backend
     depends_on:
