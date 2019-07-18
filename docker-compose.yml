@@ -56,14 +56,16 @@ services:
 
 networks:
   frontend:
-    driver: bridge
-    config:
-      - subnet: "192.168.101.0/24"
+    ipam:
+      driver: bridge
+      config:
+        - subnet: "192.168.101.0/24"
 
   backend:
-    driver: bridge
-    config:
-      - subnet: "192.168.102.0/24"
+    ipam
+      driver: bridge
+      config:
+        - subnet: "192.168.102.0/24"
 
 volumes:
   mariadb:
