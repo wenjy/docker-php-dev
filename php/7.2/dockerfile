@@ -1,6 +1,6 @@
 FROM php:7.2-fpm
 
-COPY php/7.2/etc/php.ini.devlelopment /usr/local/etc/php/php.ini
+COPY ./etc/php.ini.devlelopment /usr/local/etc/php/php.ini
 
 RUN apt-get update && apt-get install -y libcurl4-gnutls-dev \
     && pecl install yar-2.0.5 swoole-4.3.0 redis-4.3.0 \
